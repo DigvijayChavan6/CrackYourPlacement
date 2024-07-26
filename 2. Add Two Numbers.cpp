@@ -26,3 +26,34 @@
 // 0 <= Node.val <= 9
 // It is guaranteed that the list represents a number that does not have leading zeros.
 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* a, ListNode* b) {
+        ListNode *start=new ListNode(0);
+        ListNode *num=start;
+        int carry=0;
+        while(a || b){
+            int sum=0;
+            if(a)sum+=a->val;
+            if(b)sum+=b->val;
+            sum+=carry;
+            num->next=new ListNode(sum%10);
+            num=num->next;
+            carry=sum/10;
+            if(a)a=a->next;
+            if(b)b=b->next;
+        }
+        if(carry)num->next=new ListNode(1);
+        return start->next;
+    }
+};
